@@ -15,6 +15,7 @@ namespace BlockBreaker
         public Paddle Paddle { get; }
         public List<Ball> balls { get; }
         private bool _moveBall = true;
+        private int test;
 
         public Canvas(int height, int width, int x, int y)
         {
@@ -48,9 +49,10 @@ namespace BlockBreaker
             Paddle.Show();
 
 
+            test = (test + 1) % 4;
+            MoveBall(test != 0);
+            //_moveBall = !_moveBall;
 
-            if (_moveBall) MoveBall();
-            _moveBall = !_moveBall;
 
         }
         public void RemoveBall(Ball ball)
@@ -58,13 +60,13 @@ namespace BlockBreaker
             balls.Remove(ball);
         }
 
-        private void MoveBall()
+        private void MoveBall(bool blank)
         {
             if (balls.Count > 0)
             {
                 foreach (Ball ball in balls.ToList())
                 {
-                    ball.Show();
+                    ball.Show(blank);
                 }
             }
         }

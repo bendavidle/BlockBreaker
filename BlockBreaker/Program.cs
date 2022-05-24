@@ -27,7 +27,7 @@ while (true)
                 break;
         }
     }
-    Thread.Sleep(33);
+    Thread.Sleep(8);
 
 }
 

@@ -26,8 +26,15 @@ namespace BlockBreaker
             Y = _paddle.Y - 1;
         }
 
-        public void Show()
+        public void Show(bool blank)
         {
+            if (blank)
+            {
+                Console.SetCursorPosition(X, Y);
+                Console.Write("O");
+                return;
+
+            }
             Console.SetCursorPosition(X, Y);
             Console.Write("O");
 
@@ -57,11 +64,11 @@ namespace BlockBreaker
 
         private bool HitPaddle()
         {
-            for (int i = _paddle.X - 1; i < _paddle.X + 1 + _paddle.Length; i++)
+            for (int i = _paddle.X; i < _paddle.X + _paddle.Length; i++)
             {
 
 
-                if (X == i)
+                if (X + Angle == i)
                 {
                     if (i < _paddle.X + _paddle.Length / 2)
                     {
