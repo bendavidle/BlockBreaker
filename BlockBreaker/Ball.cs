@@ -15,7 +15,7 @@ namespace BlockBreaker
         private readonly Paddle _paddle;
         //Vector
         public int Direction = -1;
-        public int Angle = 1;
+        public int Angle = -1;
 
 
         public Ball(Canvas canvas, Paddle paddle)
@@ -32,9 +32,9 @@ namespace BlockBreaker
             Console.Write("O");
 
             //Collision Top and Bottom
-            if (Y + Direction == _canvas.Y)
+            if (Y + Direction == _canvas.Y || Y + Direction == _paddle.Y && HitPaddle())
             {
-                Direction = 1;
+                Direction = -Direction;
             }
 
             if (Y + Direction == _canvas.Height + _canvas.Y)
@@ -42,15 +42,10 @@ namespace BlockBreaker
                 _canvas.RemoveBall(this);
             }
 
-            if (Y + Direction == _paddle.Y && HitPaddle())
-            {
-                Direction = -1;
-            }
-
 
 
             //Collision Wall
-            if (X + Angle == _canvas.X || X + Angle == _canvas.X + _canvas.Width)
+            if (X + Angle <= _canvas.X || X + Angle >= _canvas.X + _canvas.Width)
             {
                 Angle = -Angle;
             }
@@ -62,12 +57,24 @@ namespace BlockBreaker
 
         private bool HitPaddle()
         {
-            for (int i = _paddle.X; i < _paddle.X + _paddle.Length; i++)
+            for (int i = _paddle.X - 1; i < _paddle.X + 1 + _paddle.Length; i++)
             {
+
+
                 if (X == i)
                 {
+                    if (i < _paddle.X + _paddle.Length / 2)
+                    {
+                        Angle--;
+                    }
+
+                    if (i > _paddle.X + _paddle.Length / 2)
+                    {
+                        Angle++;
+                    }
                     return true;
                 }
+
             }
 
             return false;
