@@ -6,8 +6,10 @@ using System.Runtime.InteropServices;
 [DllImport("user32.dll")]
 static extern short GetAsyncKeyState(int key);
 
-var canvas = new Canvas(30, 90, 10, 5);
+var canvas = new Canvas(60, 182, 10, 5);
 Console.CursorVisible = false;
+Console.WindowHeight = 60;
+Console.WindowWidth = 200;
 
 while (true)
 {
@@ -27,6 +29,8 @@ while (true)
 
         if ((GetAsyncKeyState(0x26) & 0x8000) > 0)
         {
+            canvas.SpawnBall();
+            canvas.SpawnBall();
             canvas.SpawnBall();
         }
 

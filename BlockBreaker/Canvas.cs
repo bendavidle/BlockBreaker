@@ -14,11 +14,11 @@ namespace BlockBreaker
         public int Height { get; }
         public int Width { get; }
         public Paddle Paddle { get; }
-        public List<Ball> balls { get; }
+        public List<Ball> Balls { get; }
+        public List<Block> Blocks { get; }
         private int _moveRate;
         private int _drawRate = 20;
-        private bool isDrawn = false;
-        private string _scene;
+        private bool _isDrawn = false;
 
         public Canvas(int height, int width, int x, int y)
         {
@@ -27,13 +27,15 @@ namespace BlockBreaker
             X = x;
             Y = y;
             Paddle = new Paddle(this);
-            balls = new List<Ball> { new(this, Paddle) };
-            CreateScene();
+            Balls = new List<Ball> { new(this, Paddle) };
+            Blocks = new List<Block>();
+            CreateBlocks();
         }
+
+
 
         public void Show()
         {
-
             Console.CursorVisible = false;
 
             _drawRate = (_drawRate + 1) % 20;
@@ -43,12 +45,13 @@ namespace BlockBreaker
 
             _moveRate = (_moveRate + 1) % 2;
             MoveBall(_moveRate != 0);
+            DrawBlocks();
             Paddle.Show();
 
-            if (!isDrawn)
+            if (!_isDrawn)
             {
                 DrawCanvas();
-                isDrawn = true;
+                _isDrawn = true;
             }
 
             //if (draw)
@@ -84,48 +87,54 @@ namespace BlockBreaker
             }
         }
 
-        private void CreateScene()
+        private void CreateBlocks()
         {
-            for (int row = 0; row < Width; row++)
+            int amountOfBlocks = (Width - 1) / 5;
+
+            int row = 6;
+            for (int j = 0; j < row; j++)
             {
-                for (int col = 0; col < Height; col++)
+                for (int i = 0; i < amountOfBlocks; i++)
                 {
+                    int blockX = X + 1 + 5 * i;
+                    int blockY = Y + 4 + 2 * j;
+                    Blocks.Add(new Block(blockX, blockY));
 
-                    if (row == 0 || row == Width)
-                    {
-                        _scene += "x";
-                    }
-                    else
-                    {
-                        _scene += " ";
-                    }
-
-                    if (col == 0 || row == Height)
-                    {
-                        _scene += "x";
-                    }
-                    else
-                    {
-                        _scene += " ";
-                    }
                 }
-                _scene += '\n';
             }
-        }
 
+        }
 
         public void RemoveBall(Ball ball)
         {
-            balls.Remove(ball);
+            Balls.Remove(ball);
+        }
+
+        public void RemoveBlock(Block block)
+        {
+            Blocks.Remove(block);
+            block.RemoveBlock();
+
         }
 
         public void MoveBall(bool blank)
         {
-            if (balls.Count > 0)
+            if (Balls.Count > 0)
             {
-                foreach (Ball ball in balls.ToList())
+                foreach (Ball ball in Balls.ToList())
                 {
                     ball.Show(blank);
+                }
+            }
+        }
+
+        public void DrawBlocks()
+        {
+            if (Blocks.Count > 0)
+            {
+                foreach (Block block in Blocks.ToList())
+                {
+                    block.DrawBlock();
                 }
             }
         }
@@ -133,7 +142,9 @@ namespace BlockBreaker
 
         public void SpawnBall()
         {
-            balls.Add(new Ball(this, Paddle));
+            Balls.Add(new Ball(this, Paddle));
         }
     }
 }
+
+// arr [["x,y""x+1, y"..."x+4, y""x,y+1""x+1, y+1"..."x+4, y+1"] ["x,y""x+1, y"..."x+4, y""x,y+1""x+1, y+1"..."x+4, y+1"]]

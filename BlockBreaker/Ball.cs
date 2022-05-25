@@ -59,6 +59,7 @@ namespace BlockBreaker
             if (Y + Direction == _canvas.Height + _canvas.Y)
             {
                 _canvas.RemoveBall(this);
+                Helper.PrintAtPosition(X, Y, ' ');
             }
 
 
@@ -74,6 +75,13 @@ namespace BlockBreaker
 
             }
 
+
+            if (HitBlock() != null)
+            {
+                Block hitBlock = HitBlock();
+                Direction = -Direction;
+                _canvas.RemoveBlock(hitBlock);
+            }
 
             Y += Direction;
             X += Angle;
@@ -104,6 +112,34 @@ namespace BlockBreaker
             }
 
             return false;
+        }
+
+
+        private Block HitBlock()
+        {
+            foreach (Block block in _canvas.Blocks)
+            {
+
+                List<int[]> blockPositions = new List<int[]>();
+
+                for (int i = block.Y; i < block.Y + 2; i++)
+                {
+                    for (int j = block.X; j < block.X + 5; j++)
+                    {
+                        int[] coordinate = { j, i };
+                        blockPositions.Add(coordinate);
+                    }
+                }
+
+                int[] ballCoordinate = { X + Angle, Y + Direction };
+
+                if (blockPositions.Any(p => p.SequenceEqual(ballCoordinate)))
+                {
+                    return block;
+                }
+            }
+
+            return null!;
         }
 
     }
