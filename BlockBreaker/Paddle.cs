@@ -42,6 +42,11 @@ namespace BlockBreaker
             if (endPos < _canvas.Width + _canvas.X)
             {
                 X++;
+                Console.SetCursorPosition(X - 1, Y);
+                Console.Write(" ");
+                Console.SetCursorPosition(X - 1, Y + 1);
+                Console.Write(" ");
+
             }
         }
 
@@ -50,6 +55,10 @@ namespace BlockBreaker
             if (X - 1 > _canvas.X)
             {
                 X--;
+                Console.SetCursorPosition(X  + Length, Y);
+                Console.Write(" ");
+                Console.SetCursorPosition(X  + Length, Y + 1);
+                Console.Write(" ");
             }
 
         }
