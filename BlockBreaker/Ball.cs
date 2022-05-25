@@ -30,24 +30,28 @@ namespace BlockBreaker
         {
             if (blank)
             {
-                
-                Console.SetCursorPosition(X, Y);
-                Console.Write("O");
-                Console.SetCursorPosition(X-Angle,Y - Direction );
-                Console.Write(" ");
-                
+                Helper.PrintAtPosition(X, Y, 'O');
+                Helper.PrintAtPosition(X - Angle, Y - Direction, ' ');
+
+                //Console.SetCursorPosition(X, Y);
+                //Console.Write("O");
+                //Console.SetCursorPosition(X - Angle, Y - Direction);
+                //Console.Write(" ");
+
                 return;
 
             }
-            
-            Console.SetCursorPosition(X, Y);
-            Console.Write("O");
-            Console.SetCursorPosition(X - Angle, Y - Direction);
-            Console.Write(" ");
 
+            Helper.PrintAtPosition(X, Y, 'O');
+            Helper.PrintAtPosition(X - Angle, Y - Direction, ' ');
+
+            //Console.SetCursorPosition(X, Y);
+            //Console.Write("O");
+            //Console.SetCursorPosition(X - Angle, Y - Direction);
+            //Console.Write(" ");
 
             //Collision Top and Bottom
-            if (Y + Direction == _canvas.Y || Y + Direction == _paddle.Y && HitPaddle())
+            if (Y + Direction <= _canvas.Y || Y + Direction >= _paddle.Y && HitPaddle())
             {
                 Direction = -Direction;
             }
@@ -65,9 +69,16 @@ namespace BlockBreaker
                 Angle = -Angle;
             }
 
+            if (X < _canvas.X || X > _canvas.X + _canvas.Width)
+            {
+
+            }
+
 
             Y += Direction;
             X += Angle;
+
+
         }
 
         private bool HitPaddle()

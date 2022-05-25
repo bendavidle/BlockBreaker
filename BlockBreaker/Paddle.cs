@@ -29,10 +29,13 @@ namespace BlockBreaker
         {
             for (int i = 0; i < Length; i++)
             {
-                Console.SetCursorPosition(X + i, Y);
-                Console.Write("═");
-                Console.SetCursorPosition(X + i, Y + 1);
-                Console.Write("═");
+                Helper.PrintAtPosition(X + i, Y, '═');
+                Helper.PrintAtPosition(X + i, Y + 1, '═');
+
+                //Console.SetCursorPosition(X + i, Y);
+                //Console.Write("═");
+                //Console.SetCursorPosition(X + i, Y + 1);
+                //Console.Write("═");
             }
         }
 
@@ -42,10 +45,13 @@ namespace BlockBreaker
             if (endPos < _canvas.Width + _canvas.X)
             {
                 X++;
-                Console.SetCursorPosition(X - 1, Y);
-                Console.Write(" ");
-                Console.SetCursorPosition(X - 1, Y + 1);
-                Console.Write(" ");
+                Helper.PrintAtPosition(X - 1, Y, ' ');
+                Helper.PrintAtPosition(X - 1, Y + 1, ' ');
+
+                //Console.SetCursorPosition(X - 1, Y);
+                //Console.Write(" ");
+                //Console.SetCursorPosition(X - 1, Y + 1);
+                //Console.Write(" ");
 
             }
         }
@@ -55,10 +61,13 @@ namespace BlockBreaker
             if (X - 1 > _canvas.X)
             {
                 X--;
-                Console.SetCursorPosition(X  + Length, Y);
-                Console.Write(" ");
-                Console.SetCursorPosition(X  + Length, Y + 1);
-                Console.Write(" ");
+                Helper.PrintAtPosition(X + Length, Y, ' ');
+                Helper.PrintAtPosition(X + Length, Y + 1, ' ');
+
+                //Console.SetCursorPosition(X + Length, Y);
+                //Console.Write(" ");
+                //Console.SetCursorPosition(X + Length, Y + 1);
+                //Console.Write(" ");
             }
 
         }
