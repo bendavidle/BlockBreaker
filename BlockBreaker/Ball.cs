@@ -30,13 +30,21 @@ namespace BlockBreaker
         {
             if (blank)
             {
+                
                 Console.SetCursorPosition(X, Y);
                 Console.Write("O");
+                Console.SetCursorPosition(X-Angle,Y - Direction );
+                Console.Write(" ");
+                
                 return;
 
             }
+            
             Console.SetCursorPosition(X, Y);
             Console.Write("O");
+            Console.SetCursorPosition(X - Angle, Y - Direction);
+            Console.Write(" ");
+
 
             //Collision Top and Bottom
             if (Y + Direction == _canvas.Y || Y + Direction == _paddle.Y && HitPaddle())

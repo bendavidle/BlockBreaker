@@ -29,7 +29,7 @@ namespace BlockBreaker
 
         public void Show()
         {
-            Console.Clear();
+            //Console.Clear();
             for (int col = 0; col < Height; col++)
             {
                 Console.SetCursorPosition(0 + X, col + Y);
