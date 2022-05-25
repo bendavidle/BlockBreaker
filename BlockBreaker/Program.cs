@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 [DllImport("user32.dll")]
 static extern short GetAsyncKeyState(int key);
 
-var canvas = new Canvas(30, 90, 0, 0);
+var canvas = new Canvas(30, 90, 10, 5);
 Console.CursorVisible = false;
 
 while (true)
@@ -52,7 +52,7 @@ while (true)
         //        break;
         //}
     }
-    Thread.Sleep(200);
+    Thread.Sleep(8);
     canvas.Show();
 }
 
