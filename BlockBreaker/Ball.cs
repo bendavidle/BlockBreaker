@@ -70,11 +70,6 @@ namespace BlockBreaker
                 Angle = -Angle;
             }
 
-            if (X < _canvas.X || X > _canvas.X + _canvas.Width)
-            {
-
-            }
-
 
             if (HitBlock() != null)
             {
