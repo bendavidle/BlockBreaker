@@ -12,8 +12,9 @@ bool isFirstGame = true;
 while (true)
 {
     Console.Clear();
-    while (Console.KeyAvailable) { Console.ReadKey(true); }
     Console.WriteLine(isFirstGame ? "Press space to start game" : $"You scored {canvas.Score.MaxScore} points!\nPress space to try again");
+
+    while (Console.KeyAvailable) { Console.ReadKey(true); }
 
     while (true)
     {

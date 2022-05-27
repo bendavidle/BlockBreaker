@@ -42,7 +42,7 @@ namespace BlockBreaker
             Score = new ScoreCounter(this);
             Balls = new List<Ball> { new(this, Paddle) };
             Blocks = new List<Block>();
-            CreateBlocks();
+            CreateBlocks(0);
         }
 
         public void StartGame()
@@ -115,11 +115,11 @@ namespace BlockBreaker
             }
         }
 
-        private void CreateBlocks()
+        private void CreateBlocks(int additionalRows)
         {
             int amountOfBlocks = (Width - 1) / 5;
 
-            int row = 6;
+            int row = 6 + additionalRows;
             for (int j = 0; j < row; j++)
             {
                 for (int i = 0; i < amountOfBlocks; i++)
@@ -156,6 +156,11 @@ namespace BlockBreaker
             block.RemoveBlock();
 
             Score.SetScore(Score.Score + 100);
+
+            if (Blocks.Count == 0)
+            {
+                CreateBlocks(1);
+            }
 
         }
 

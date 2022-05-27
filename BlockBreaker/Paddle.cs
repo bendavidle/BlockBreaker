@@ -32,10 +32,6 @@ namespace BlockBreaker
                 Helper.PrintAtPosition(X + i, Y, '═');
                 Helper.PrintAtPosition(X + i, Y + 1, '═');
 
-                //Console.SetCursorPosition(X + i, Y);
-                //Console.Write("═");
-                //Console.SetCursorPosition(X + i, Y + 1);
-                //Console.Write("═");
             }
         }
 
@@ -48,10 +44,6 @@ namespace BlockBreaker
                 Helper.PrintAtPosition(X - 1, Y, ' ');
                 Helper.PrintAtPosition(X - 1, Y + 1, ' ');
 
-                //Console.SetCursorPosition(X - 1, Y);
-                //Console.Write(" ");
-                //Console.SetCursorPosition(X - 1, Y + 1);
-                //Console.Write(" ");
 
             }
         }
@@ -64,10 +56,7 @@ namespace BlockBreaker
                 Helper.PrintAtPosition(X + Length, Y, ' ');
                 Helper.PrintAtPosition(X + Length, Y + 1, ' ');
 
-                //Console.SetCursorPosition(X + Length, Y);
-                //Console.Write(" ");
-                //Console.SetCursorPosition(X + Length, Y + 1);
-                //Console.Write(" ");
+
             }
 
         }

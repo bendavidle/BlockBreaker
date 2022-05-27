@@ -15,7 +15,7 @@ namespace BlockBreaker
         private readonly Paddle _paddle;
         //Vector
         public int Direction = -1;
-        public int Angle = -1;
+        public int Angle;
 
 
         public Ball(Canvas canvas, Paddle paddle)
@@ -33,22 +33,12 @@ namespace BlockBreaker
                 Helper.PrintAtPosition(X, Y, 'O');
                 Helper.PrintAtPosition(X - Angle, Y - Direction, ' ');
 
-                //Console.SetCursorPosition(X, Y);
-                //Console.Write("O");
-                //Console.SetCursorPosition(X - Angle, Y - Direction);
-                //Console.Write(" ");
-
                 return;
 
             }
 
             Helper.PrintAtPosition(X, Y, 'O');
             Helper.PrintAtPosition(X - Angle, Y - Direction, ' ');
-
-            //Console.SetCursorPosition(X, Y);
-            //Console.Write("O");
-            //Console.SetCursorPosition(X - Angle, Y - Direction);
-            //Console.Write(" ");
 
             //Collision Top and Bottom
             if (Y + Direction <= _canvas.Y || Y + Direction >= _paddle.Y && HitPaddle())
