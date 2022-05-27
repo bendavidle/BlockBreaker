@@ -4,7 +4,7 @@ using BlockBreaker;
 Canvas canvas = new Canvas(30, 91, 10, 5);
 
 Console.CursorVisible = false;
-Console.WindowHeight = 60;
+Console.WindowHeight = 40;
 Console.WindowWidth = 110;
 
 bool isFirstGame = true;
@@ -12,16 +12,8 @@ bool isFirstGame = true;
 while (true)
 {
     Console.Clear();
-
+    while (Console.KeyAvailable) { Console.ReadKey(true); }
     Console.WriteLine(isFirstGame ? "Press space to start game" : $"You scored {canvas.Score.MaxScore} points!\nPress space to try again");
-
-    //ConsoleKey pressed;
-    //do
-    //{
-    //    pressed = Console.ReadKey().Key;
-    //} while (pressed != ConsoleKey.Spacebar);
-
-
 
     while (true)
     {
