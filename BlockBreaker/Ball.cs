@@ -74,7 +74,16 @@ namespace BlockBreaker
             if (HitBlock() != null)
             {
                 Block hitBlock = HitBlock();
-                Direction = -Direction;
+
+                if (HitBlockSide(hitBlock))
+                {
+                    Angle = -Angle;
+                }
+                else
+                {
+                    Direction = -Direction;
+                }
+
                 _canvas.RemoveBlock(hitBlock);
             }
 
@@ -94,12 +103,26 @@ namespace BlockBreaker
                 {
                     if (i < _paddle.X + _paddle.Length / 2)
                     {
-                        Angle--;
+                        if (Angle - 1 == -2)
+                        {
+                            Angle = -1;
+                        }
+                        else
+                        {
+                            Angle--;
+                        }
                     }
 
                     if (i > _paddle.X + _paddle.Length / 2)
                     {
-                        Angle++;
+                        if (Angle + 1 == 2)
+                        {
+                            Angle = 1;
+                        }
+                        else
+                        {
+                            Angle++;
+                        }
                     }
                     return true;
                 }
@@ -130,6 +153,7 @@ namespace BlockBreaker
 
                 if (blockPositions.Any(p => p.SequenceEqual(ballCoordinate)))
                 {
+
                     return block;
                 }
             }
@@ -137,6 +161,45 @@ namespace BlockBreaker
             return null!;
         }
 
+        private bool HitBlockSide(Block hitBlock)
+        {
+            foreach (Block block in _canvas.Blocks)
+            {
+
+                List<int[]> blockPositions = new List<int[]>();
+
+                for (int i = block.Y; i < block.Y + 2; i++)
+                {
+                    for (int j = block.X; j < block.X + 5; j++)
+                    {
+                        int[] coordinate = { j, i };
+                        blockPositions.Add(coordinate);
+                    }
+                }
+
+                int[] blockLeft = { hitBlock.X - 1, hitBlock.Y };
+                int[] blockRight = { hitBlock.X + 6, hitBlock.Y };
+                int[] nextBallPos = { X + Angle, Y + Direction };
+
+                if (nextBallPos.SequenceEqual(new[] { hitBlock.X, hitBlock.Y }) || nextBallPos.SequenceEqual(new[] { hitBlock.X, hitBlock.Y + 1 }))
+                {
+                    if (Angle > 0)
+                    {
+                        return !blockPositions.Any(p => p.SequenceEqual(blockLeft));
+                    }
+                }
+                if (nextBallPos.SequenceEqual(new[] { hitBlock.X + 4, hitBlock.Y }) || nextBallPos.SequenceEqual(new[] { hitBlock.X + 4, hitBlock.Y + 1 }))
+                {
+                    if (Angle < 0)
+                    {
+                        return !blockPositions.Any(p => p.SequenceEqual(blockRight));
+                    }
+                }
+
+            }
+
+            return false;
+        }
     }
 
 }

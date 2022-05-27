@@ -1,62 +1,54 @@
 ﻿
 using BlockBreaker;
-using System.Diagnostics;
-using System.Runtime.InteropServices;
 
-[DllImport("user32.dll")]
-static extern short GetAsyncKeyState(int key);
+Canvas canvas = new Canvas(30, 91, 10, 5);
 
-var canvas = new Canvas(60, 182, 10, 5);
 Console.CursorVisible = false;
 Console.WindowHeight = 60;
-Console.WindowWidth = 200;
+Console.WindowWidth = 110;
+
+bool isFirstGame = true;
 
 while (true)
 {
+    Console.Clear();
 
-    if (Console.KeyAvailable)
+    Console.WriteLine(isFirstGame ? "Press space to start game" : $"You scored {canvas.Score.MaxScore} points!\nPress space to try again");
+
+    //ConsoleKey pressed;
+    //do
+    //{
+    //    pressed = Console.ReadKey().Key;
+    //} while (pressed != ConsoleKey.Spacebar);
+
+
+
+    while (true)
     {
-
-        if ((GetAsyncKeyState(0x25) & 0x8000) > 0)
-        {
-            canvas.Paddle.MoveLeft();
-        }
-
-        if ((GetAsyncKeyState(0x27) & 0x8000) > 0)
-        {
-            canvas.Paddle.MoveRight();
-        }
-
-        if ((GetAsyncKeyState(0x26) & 0x8000) > 0)
-        {
-            canvas.SpawnBall();
-            canvas.SpawnBall();
-            canvas.SpawnBall();
-        }
-
-        if ((GetAsyncKeyState(0x24) & 0x8000) > 0)
-        {
-
-        }
-
-        //ConsoleKeyInfo key = Console.ReadKey(true);
-        //switch (key.Key)
-        //{
-        //    case ConsoleKey.RightArrow:
-        //        {
-        //            canvas.Paddle.MoveRight();
-        //            break;
-        //        }
-        //    case ConsoleKey.LeftArrow:
-        //        {
-        //            canvas.Paddle.MoveLeft();
-        //            break;
-        //        }
-        //    default:
-        //        break;
-        //}
+        var info = Console.ReadKey(true);
+        if (info.Key == ConsoleKey.Spacebar) break;
     }
-    Thread.Sleep(8);
-    canvas.Show();
+
+    NewGame();
+
+
+    canvas.StartGame();
+
 }
+
+void NewGame()
+{
+    Console.Clear();
+
+    isFirstGame = false;
+    if (!isFirstGame)
+    {
+        canvas.Reset();
+    }
+}
+
+
+
+
+
 
